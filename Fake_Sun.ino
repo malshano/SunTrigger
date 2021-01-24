@@ -4,9 +4,9 @@
 
 
 #define OLED_RESET 4
-int LEDpin = 13; //7
-int hourset[]={12,14,00};  // holds alarm values 
-int houroff[] = {12,15,00};
+int LEDpin = 6; //7
+int hourset[]={8,00,00};  // holds alarm values 
+int houroff[] = {18,00,00};
 Adafruit_SSD1306 display(OLED_RESET);
 
 bool alarmstatus = false;
@@ -22,12 +22,24 @@ void setup () {
   display.clearDisplay();
   Wire.begin();
   rtc.begin();
+  digitalWrite(LEDpin, HIGH);   
+  delay(100);
+  digitalWrite(LEDpin, LOW);   
+  delay(100);
+  digitalWrite(LEDpin, HIGH);   
+  delay(100);
+  digitalWrite(LEDpin, LOW);   
+  delay(100);
+  digitalWrite(LEDpin, HIGH);   
+  delay(100);
+  digitalWrite(LEDpin, LOW);   
+  delay(100);
 
-  if (rtc.lostPower()) {
-    Serial.println("RTC is NOT running!");
+
     rtc.adjust(DateTime(F(__DATE__), F(__TIME__)));       // Date and time is set to the computers date and time
-  }
+  
         Serial.println(hourset[0]);
+   
 }
 
 void loop () {
@@ -38,22 +50,22 @@ void loop () {
 
   
 if (now.hour() == hourset[0] && now.minute() == hourset[1] ) {  // reads the alarm array if it is equal to the time then the alarm tuns on. Seconds cannot be set because of alarm chek being done every 3 seconds
-  alarmstatus = "ON"  ;                                        // toggles boolean on - so that the light stays on
+  digitalWrite(LEDpin, HIGH);                                           // toggles Light on - so that the light stays on
   Serial.println("ALARM ON");
 
 }
 if (now.hour() == houroff[0] && now.minute() == houroff[1]) {  // reads the alarm array to tiuurn alarm off
-  alarmstatus = "OFF" ;                                        // Toggles boolean off at sunset 
+   digitalWrite(LEDpin, LOW);                                        // Toggles Light off at sunset 
         Serial.println("ALARM OFF");
 }
 
-if (alarmstatus =="ON"){                                      // Checks boolean and turns alarm on or off
-    digitalWrite(LEDpin, HIGH); 
-  }
-  else if(alarmstatus =="OFF"){
-    digitalWrite(LEDpin, LOW); 
-  }
-  
+//if (alarmstatus =="ON"){                                      // Checks boolean and turns alarm on or off
+//    digitalWrite(LEDpin, HIGH); 
+//  }
+//  else if(alarmstatus =="OFF"){
+//    digitalWrite(LEDpin, LOW); 
+//  }
+//  
   
   AlarmDisplay();                                         // Displays the alarm display on OLED with sunrise and sunset times               
 
