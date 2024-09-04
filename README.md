@@ -1,4 +1,4 @@
-# SunTrigger
+  SunTrigger
 Alarm clock that triggers Light in my room 
 
 ![alt text](https://i.imgur.com/Qjg2CS3.png)
@@ -12,6 +12,11 @@ Alarm clock that triggers Light in my room
 
 Trigger Pin - Pin 7 
 
-OLED  - A4 and A5 
+OLED  - A4 and A5 ST
 
-RST 
+Test
+
+
+
+
+
